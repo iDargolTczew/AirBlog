@@ -17,6 +17,16 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+            
+        blog_security:
+            pattern: ^/
+            anonymous: ~
+            form_login: _check_path
+            login_path: blog_login
+            default_target_path: blog_index
+        logout:
+            path: _logout
+            target: blog_index
 
         main:
             anonymous: ~

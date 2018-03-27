@@ -12,7 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 class LoginController extends Controller
 {
     /**
-     * @Route("/login")
+     * @Route(
+     *      "/login",
+     *      name = "blog_login"         
+     * )
      * @Template()
      */
     public function loginAction(Request $request)
