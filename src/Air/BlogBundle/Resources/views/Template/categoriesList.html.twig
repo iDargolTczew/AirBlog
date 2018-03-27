@@ -1,0 +1,11 @@
+ <ul class="categories">
+    <!-- printCategoriesList z twigextension->blogextension -->
+    {% for category in printCategoriesList() %}
+        {% if app.request.get('_route') == 'blog_category' and app.request.get('slug') == category.slug %}
+            <li class="active"> <!--jesli jestem na tej sciezce to podswietlam aktualny button -->
+        {% else %}
+            <li>
+        {% endif %}
+            <a href="{{ path('blog_category', {'slug':category.slug}) }}">{{ category.name }}</a></li>
+    {% endfor %}
+</ul>

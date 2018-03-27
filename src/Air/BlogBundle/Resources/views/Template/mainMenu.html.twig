@@ -1,0 +1,11 @@
+<ul>
+    {#{{ dump(printMainMenu()) }}#}
+    {% for name, route in printMainMenu() %}
+        {% if app.request.get('_route') == route %}
+            <li class="active"> <!--jesli jestem na tej sciezce to podswietlam aktualny button -->
+        {% else %}
+            <li>
+        {% endif %}
+            <a href="{{ path(route) }}">{{ name }}</a></li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title> {% spaceless %}{% block pageTitle %}{% endblock %}{% endspaceless %} | AirBlog</title>
+        <link rel="icon" type="image/png" href="/favicon.png">
+        <meta name="description" content="">{% spaceless %}{% block pageDescription %}{% endblock %}{% endspaceless %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% block stylesheet %}
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+           
+        <link rel="stylesheet" href="{{ asset('bundles/airblog/css/normalize.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/airblog/css/main.css') }}">
+        {% endblock %}
+        
+    </head>
+    <body>        
+        <header id="header">
+            <div class="top">
+                <div class="pos-center">
+                    
+                    <a class="mobile-menu-trigger" href="#">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </a>
+                    
+                    <div class="menu">
+                        <nav>
+                            {% include "AirBlogBundle:Template:mainMenu.html.twig" %} <!-- wyswietla menu nawigacyjne -->
+                            {#<ul>
+                                <li><a href="#">HOME</a></li>
+                                <li><a href="#">O MNIE</a></li>
+                                <li><a href="#">KONTAKT</a></li>
+                            </ul>#}
+                        </nav>
+                        <!-- lista kategorii w widoku mobilnym -->
+                        {% include "AirBlogBundle:Template:categoriesList.html.twig" %}
+                        {#{{ printCategoriesList() }}#}
+                        {#<ul class="categories">
+                            <li><a href="#">Samoloty osobowe i pasażerskie</a></li>
+                            <li><a class="active" href="#">Samoloty odrzutowe</a></li>
+                            <li><a href="#">Samoloty wojskowe</a></li>
+                            <li><a href="#">Proy kosmiczne</a></li>
+                            <li><a href="#">Tajne rozwiązania</a></li>
+                        </ul>#}
+                        
+                        <!-- 
+                        <div class="user-panel">
+                            <span class="user-name">Zalogowany jako <a href="#">macq</a></span>
+                            <a class="btn-green" href="#">Wyloguj</a>
+                        </div>
+                         -->
+                        
+                        <div class="user-panel">
+                            <div class="btn-group">
+                                <a class="btn-green" href="#">Zaloguj</a>
+                                <a class="btn-green" href="#">Zarejestruj</a>
+                            </div>
+                        </div> 
+                       
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            {% block topImage %}
+                <div class="top-image"></div>
+            {#<div class="slider">
+                <div class="viewport">
+                    <div class="slides-container">
+                        <div style="background-image: url('{{ asset('bundles/airblog/img/slide-1.jpg') }}')" class="slide"></div>
+                        <div style="background-image: url('{{ asset('bundles/airblog/img/slide-2.jpg') }}')" class="slide"></div>
+                        <div style="background-image: url('{{ asset('bundles/airblog/img/slide-3.jpg') }}')" class="slide"></div>
+                    </div>
+                </div>
+
+                <span class="nav prev"></span>
+                <span class="nav next"></span>
+            </div>#}
+            {% endblock %}
+        </header>
+
+        <div id="main">
+
+            <div class="header">
+                <div class="pos-center">
+                    <h2 class="left-side">{% spaceless %}{% block contentTitle %}{% endblock %}{% endspaceless %}</h2>
+
+                    {% if hideSearch is not defined %}
+                    <form class="right-side" action="{{ path('blog_search') }}">
+                        <input type="text" name="search" placeholder="Wyszukaj">
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="pos-center">
+                {% block content %}{% endblock %}    
+                  
+                {% if hideSidebar is not defined %}  
+                    <div class="right-side sidebar">
+                        <div class="menu">
+                            <h3>Kategorie</h3>
+                            {% include "AirBlogBundle:Template:categoriesList.html.twig" %} <!-- wyswietla liste kategorii -->
+                           {# <ul class="categories">
+                                <!-- printCategoriesList z twigextension->blogextension -->
+                                {% for category in printCategoriesList() %}
+                                    {% if app.request.get('_route') == 'blog_category' and app.request.get('slug') == category.slug %}
+                                        <li class="active"> <!--jesli jestem na tej sciezce to podswietlam aktualny button -->
+                                    {% else %}
+                                        <li>
+                                    {% endif %}
+                                        <a href="{{ path('blog_category', {'slug':category.slug}) }}">{{ category.name }}</a></li>
+                                {% endfor %}
+                            </ul>#}
+                        </div>
+
+                        <div class="tag-cloud">
+                            <h3>Chmura tagów</h3>
+                            {% include "AirBlogBundle:Template:tagsCloud.html.twig" %} <!-- wyswietla chmure tagow -->
+                            {#<div class="tags">
+                                <a style="font-size: 1.5rem" href="#">Advanced</a>
+                                <a style="font-size: 2.3rem" href="#">Blackbird</a>
+                                <a style="font-size: 1.3rem" href="#">Development</a>
+                                <a style="font-size: 2.3rem" href="#">Dwa</a>
+                                <a style="font-size: 2.3rem" href="#">Froom</a>
+                                <a style="font-size: 2rem" href="#">Lockheed</a>
+                                <a style="font-size: 1.5rem" href="#">Los</a>
+                                <a style="font-size: 1.3rem" href="#">Newadzie</a>
+                                <a style="font-size: 1.1rem" href="#">Palmdale</a>
+                                <a style="font-size: 1.8rem" href="#">Plant SR</a>
+                            </div>#}
+                        </div>
+
+                        <div class="list-widget">
+                            <h3>Najczęściej komentowane</h3>
+                            <ul>
+                                <li><a href="#">Tajne decyzje marki Boeing (13)</a></li>
+                                <li><a href="#">Osiągnięto prędkość 6 mach (76)</a></li>
+                                <li><a href="#">Nowa linia produkcyjna Airbus (53)</a></li>
+                            </ul>
+                        </div>
+
+                    </div> <!-- .right-side -->
+                {% endif %}
+                </div> <!-- .content -->
+
+                <div class="clearfix"></div>
+            </div> <!-- .pos-center -->
+        </div> <!-- #main -->
+
+        <footer id="footer">
+            <div class="top">
+                <div class="pos-center">
+                    {% include "AirBlogBundle:Template:mainMenu.html.twig" %} <!-- wyswietla menu nawigacyjne -->
+                    {#<ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">O mnie</a></li>
+                        <li><a href="#">Kontakt</a></li>
+                        <li><a href="#">Admin</a></li>
+                    </ul>#}
+                </div>
+            </div>
+
+            <div class="bottom">
+                <div class="pos-center">
+                    <div class="copyrights">
+                        <img src='{{ asset('bundles/airblog/img/skull.png') }}'>&copy; iDargol 2018 Wakacje.pl ;)
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        {% block javascripts %}
+            <script src="{{ asset('bundles/airblog/js/vendor/jquery-1.10.2.min.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('bundles/airblog/js/vendor/jquery.responsiSlider.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('bundles/airblog/js/vendor/modernizr-2.7.0.min.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('bundles/airblog/js/plugins.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('bundles/airblog/js/main.js') }}" type="text/javascript"></script>
+        {% endblock %}
+    </body>
+</html>

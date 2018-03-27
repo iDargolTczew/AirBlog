@@ -1,0 +1,84 @@
+{% extends "AirBlogBundle::base.html.twig" %}
+
+{% set hideSearch = true %}
+{% set hideSidebar = true %}
+
+{% block pageTitle %}Zaloguj się lub zarejestruj{% endblock %}
+
+
+{% block contentTitle %}Logowanie i rejestracja człowieku men :P{% endblock %}
+
+{% block content %}
+<div class="pos-center">
+    <div class="login-register two-cols">
+        <div class="col col-bdr">
+
+            <h2 class="strong">Logowanie</h2>
+
+            <form class="login-form" action="#" method="post">
+
+                <div class="form-row">
+                    <label for="login" class="required">Login</label>
+                    <input id="login" type="text">
+                </div>
+
+                <div class="form-row">
+                    <label for="passwd" class="required">Hasło</label>
+                    <input id="passwd" type="text">
+                </div>
+
+                <label class="checkbox remember">
+                    <input type="checkbox"> Zapamiętaj mnie
+                </label>
+
+                <button class="btn-green submit">Zaloguj</button>
+            </form>
+
+            <div class="remember-pass-form">
+                <h2 class="strong">Przypomnij hasło</h2>
+
+                <form action="#" method="post">
+
+                    <div class="form-row">
+                        <label for="email" class="required">Twój email</label>
+                        <input id="email" type="text">
+                    </div>
+
+                    <button class="btn-green submit">Przypomnij</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="col">
+
+            <h2 class="strong">Rejestracja</h2>
+
+            <form action="#" method="post">                                
+
+                <div class="form-row">
+                    <label for="email" class="required">Email</label>
+                    <input type="text" id="email">
+                </div>
+
+                <div class="form-row">
+                    <label for="email" class="required">Nick</label>
+                    <input type="text" id="email">
+                </div>
+
+                <div class="form-row">
+                    <label for="pass" class="required">Hasło</label>
+                    <input type="text" id="pass">
+                </div>
+
+                <div class="form-row">
+                    <label for="passConf" class="required">Powtorz hasło</label>
+                    <input type="text" id="passConf">
+                </div>
+
+                <button class="btn-green submit">Zarejestruj</button>
+            </form>
+        </div>
+    </div>
+</div> <!-- .content -->
+{% endblock %}

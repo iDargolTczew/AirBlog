@@ -1,0 +1,8 @@
+common_user:
+    resource: "@CommonUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+air_blog:
+    resource: "@AirBlogBundle/Resources/config/routing.yml"
+    prefix:   /
