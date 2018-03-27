@@ -1,11 +1,13 @@
-# To get started with security, check out the documentation:
-# https://symfony.com/doc/current/security.html
 security:
     encoders:
         Common\UserBundle\Entity\User:
             algorithm: bcrypt
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    role_hierarchy:
+        ROLE_EDITOR:    ROLE_USER
+        ROLE_ADMIN:       [ROLE_EDITOR, ROLE_USER]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_EDITOR, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
     providers:
         blog_users:
             entity:
@@ -13,27 +15,34 @@ security:
                 property: username
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-            
+
         blog_security:
-            pattern: ^/
+            switch_user: true
+            pattern:    ^/
             anonymous: ~
-            form_login: _check_path
-            login_path: blog_login
-            default_target_path: blog_index
-        logout:
-            path: _logout
-            target: blog_index
+            form_login:
+                check_path: _check_path
+                login_path: blog_login
+                default_target_path: blog_index
+                username_parameter: login[username]
+                password_parameter: login[password]
+            logout:
+                path:   _logout
+                target: blog_index
+            remember_me:
+                key:      "%secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path:     /
+                domain:   ~ # Defaults to the current domain from $_SERVER
+                remember_me_parameter: login[remember_me]
+            #
+            #http_basic:
+            #    realm: "Secured Demo Area"
 
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/account-settings, roles: ROLE_USER }
+        - { path: ^/admin-panel, roles: ROLE_EDITOR }

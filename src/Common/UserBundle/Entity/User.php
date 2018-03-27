@@ -110,6 +110,10 @@ class User implements AdvancedUserInterface, \Serializable {
     public function isEnabled(): bool {
         return $this->enabled;
     }
+    
+    function __construct() {
+        $this->registerDate = new \DateTime();
+    }
 
 
     /**
@@ -356,7 +360,7 @@ class User implements AdvancedUserInterface, \Serializable {
         return $this->avatar;
     }
 
-    public function serialize(): string {
+    public function serialize() {
         return serialize(array(
             $this->id,
             $this->username,
@@ -364,12 +368,12 @@ class User implements AdvancedUserInterface, \Serializable {
         ));
     }
 
-    public function unserialize(string $serialized): void {
+    public function unserialize($serialized) {
         list(
-                $this->id,
-                $this->username,
-                $this->password
-                ) = unserialize($serialized) ;
+            $this->id,
+            $this->username,
+            $this->password
+        ) = unserialize($serialized);
     }
 
 }
