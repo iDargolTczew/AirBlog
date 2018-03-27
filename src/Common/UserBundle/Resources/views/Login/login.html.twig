@@ -9,6 +9,11 @@
 {% block contentTitle %}Logowanie i rejestracja człowieku men :P{% endblock %}
 
 {% block content %}
+
+{% if loginError is defined and loginError is not null %}
+    <div class="notification error">{{ loginError }}</div>
+{% endif %}
+    
 <div class="pos-center">
     <div class="login-register two-cols">
         <div class="col col-bdr">
@@ -19,12 +24,12 @@
 
                 <div class="form-row">
                     <label for="login" class="required">Login</label>
-                    <input id="login" type="text">
+                    <input id="login" type="text" name="_username" value="{{ userName }}">
                 </div>
 
                 <div class="form-row">
                     <label for="passwd" class="required">Hasło</label>
-                    <input id="passwd" type="text">
+                    <input id="passwd" type="text" name="_password">
                 </div>
 
                 <label class="checkbox remember">

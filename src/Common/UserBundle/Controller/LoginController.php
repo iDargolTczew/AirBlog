@@ -25,8 +25,13 @@ class LoginController extends Controller
         } else {
             $loginError = $session->remove(Security::AUTHENTICATION_ERROR); //jeśli błędne dane w sesji -> usuwa z sesji bledne logowanie
         }
+        
+        //jesli nastąpiło logowanie to zapamiętam nazwę usera
+        $userName = $session->get(Security::LAST_USERNAME);
+        
         return array(
-            'loginError' => $loginError
+            'loginError' => $loginError,
+            'userName' => $userName
         );
     }
 }
