@@ -27,8 +27,8 @@ security:
                 check_path: _check_path
                 login_path: blog_login
                 default_target_path: blog_index
-              #  username_parameter: login[_username]
-              #  password_parameter: login[_password]
+                username_parameter: login[username]
+                password_parameter: login[password]
             logout:
                 path:   _logout
                 target: blog_index

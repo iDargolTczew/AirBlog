@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Common\UserBundle\Form\Type\LoginType;
 
 class LoginController extends Controller
 {
@@ -29,12 +30,14 @@ class LoginController extends Controller
             $loginError = $session->remove(Security::AUTHENTICATION_ERROR); //jeśli błędne dane w sesji -> usuwa z sesji bledne logowanie
         }
         
-        //jesli nastąpiło logowanie to zapamiętam nazwę usera
-        $userName = $session->get(Security::LAST_USERNAME);
+        //korzystam z loginType w Form/Type
+        $loginForm = $this->createForm(new LoginType, array(
+            'username' => $session->get(Security::LAST_USERNAME) //jesli nastąpiło logowanie to zapamiętam nazwę usera
+        ));
         
         return array(
             'loginError' => $loginError,
-            'userName' => $userName
+            'loginForm' => $loginForm->createView()
         );
     }
 }
