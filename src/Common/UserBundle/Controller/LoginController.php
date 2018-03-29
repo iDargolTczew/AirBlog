@@ -14,8 +14,8 @@ class LoginController extends Controller
     /**
      * @Route(
      *      "/login",
-     *      name = "blog_login"         
-     * )
+     *      name = "blog_login"
+     *      )
      * @Template()
      */
     public function loginAction(Request $request)
